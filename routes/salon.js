@@ -13,10 +13,17 @@ storageSalon.use((req, res, next) => {
 
 storageSalon.get("/:id?", (req,res)=>{
     let sql = (req.params.id)
-        ? [`SELECT * FROM salon WHERE id_salon = ?`, req.params.id]
-        : [`SELECT * FROM salon`];
+        ? [`SELECT salon.id_salon, salon.nombre_salon, trainners.id_trainner, trainners.nombre_trainner, area.id_area, area.nombre_area
+            FROM salon
+            INNER JOIN trainners ON salon.trainner_salon = trainners.id_trainner
+            INNER JOIN area ON salon.area_salon = area.id_area
+            WHERE salon.id_salon = ?`, req.params.id]
+        : [`SELECT salon.id_salon, salon.nombre_salon, trainners.id_trainner, trainners.nombre_trainner, area.id_area, area.nombre_area
+            FROM salon
+            INNER JOIN trainners ON salon.trainner_salon = trainners.id_trainner
+            INNER JOIN area ON salon.area_salon = area.id_area`];
     con.query(...sql,
-        (err, data, fie)=>{
+        (err, data, fie) => {
             res.send(data);
         }
     );

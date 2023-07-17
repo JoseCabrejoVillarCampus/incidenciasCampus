@@ -13,7 +13,7 @@ storageTrainners.use((req, res, next) => {
 
 storageTrainners.get("/:id?", (req,res)=>{
     let sql = (req.params.id)
-        ? [`SELECT * FROM trainners WHERE trainner = ?`, req.params.id]
+        ? [`SELECT * FROM trainners WHERE id_trainner = ?`, req.params.id]
         : [`SELECT * FROM trainners`];
     con.query(...sql,
         (err, data, fie)=>{

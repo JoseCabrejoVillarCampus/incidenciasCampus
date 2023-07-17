@@ -29,11 +29,12 @@ CREATE TABLE salon (
     nombre_salon VARCHAR(20) NOT NULL,
     trainner_salon INT NOT NULL,
     area_salon INT NOT NULL,
-    FOREIGN KEY (area_salon) REFERENCES area(id_area)
+    FOREIGN KEY (area_salon) REFERENCES area(id_area),
+    FOREIGN KEY (trainner_salon) REFERENCES trainners(id_trainner)
 );
 
 CREATE TABLE pantalla (
-    id_pantalla INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_pantalla INT PRIMARY KEY NOT NULL,
     marca_pantalla VARCHAR(20) NOT NULL,
     color_pantalla VARCHAR(20),
     estado_pantalla INT NOT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE pantalla (
 );
 
 CREATE TABLE torre (
-    id_torre INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_torre INT PRIMARY KEY NOT NULL,
     marca_torre VARCHAR(20) NOT NULL,
     color_torre VARCHAR(20),
     estado_torre INT NOT NULL,
@@ -49,7 +50,7 @@ CREATE TABLE torre (
 );
 
 CREATE TABLE teclado (
-    id_teclado INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_teclado INT PRIMARY KEY NOT NULL,
     marca_teclado VARCHAR(20) NOT NULL,
     color_teclado VARCHAR(20),
     estado_teclado INT NOT NULL,
@@ -57,7 +58,7 @@ CREATE TABLE teclado (
 );
 
 CREATE TABLE mouse (
-    id_mouse INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_mouse INT PRIMARY KEY NOT NULL,
     marca_mouse VARCHAR(20) NOT NULL,
     color_mouse VARCHAR(20),
     estado_mouse INT NOT NULL,
@@ -65,7 +66,7 @@ CREATE TABLE mouse (
 );
 
 CREATE TABLE diadema (
-    id_diadema INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_diadema INT PRIMARY KEY NOT NULL,
     marca_diadema VARCHAR(20) NOT NULL,
     color_diadema VARCHAR(20),
     estado_diadema INT NOT NULL,
@@ -78,7 +79,7 @@ CREATE TABLE estado (
 );
 
 CREATE TABLE equipo (
-    id_equipo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_equipo INT PRIMARY KEY NOT NULL,
     pantalla_equipo INT NOT NULL,
     torre_equipo INT NOT NULL,
     teclado_equipo INT NOT NULL,
@@ -104,20 +105,32 @@ CREATE TABLE trainners (
     telefonoEmpresa_trainner VARCHAR(50) NOT NULL,
     jornada_trainner VARCHAR(20) NOT NULL
 );
-DROP TABLE incidencia;
 CREATE TABLE incidencia (
     id_incidencia INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     categoria_incidencia INT NOT NULL,
     tipo_incidencia INT NOT NULL,
     descripcion_incidencia VARCHAR(200),
     fecha_incidencia INT NOT NULL,
-    area_incidencia INT NOT NULL,
+    equipo_incidencia INT NOT NULL,
     lugar_incidencia INT NOT NULL,
     trainner_reporta_incidencia INT NOT NULL,
     FOREIGN KEY (trainner_reporta_incidencia) REFERENCES trainners(id_trainner),
     FOREIGN KEY (categoria_incidencia) REFERENCES categoria(id_categoria),
     FOREIGN KEY (tipo_incidencia) REFERENCES tipo_incidencia(id_tipo_incidencia),
     FOREIGN KEY (fecha_incidencia) REFERENCES reporte_incidencia(id_reporte),
-    FOREIGN KEY (area_incidencia) REFERENCES salon(id_salon),
-    FOREIGN KEY (lugar_incidencia) REFERENCES area(id_area)
+    FOREIGN KEY (equipo_incidencia) REFERENCES equipo(id_equipo),
+    FOREIGN KEY (lugar_incidencia) REFERENCES salon(id_salon)
 );
+
+
+
+SELECT incidencia.*, reporte_incidencia.id_reporte, area.id_area, area.nombre_area, salon.id_salon, salon.nombre_salon,trainners.id_trainner, trainners.nombre_trainner
+
+            FROM incidencia
+            INNER JOIN categoria ON incidencia.categoria_incidencia = categoria.id_categoria
+            INNER JOIN tipo_incidencia ON incidencia.tipo_incidencia = tipo_incidencia.id_tipo_incidencia
+            INNER JOIN reporte_incidencia ON incidencia.fecha_incidencia = reporte_incidencia.id_reporte
+            INNER JOIN equipo ON incidencia.equipo_incidencia = equipo.id_equipo
+            INNER JOIN salon ON incidencia.lugar_incidencia = salon.id_salon
+            INNER JOIN area ON salon.area_salon = area.id_area
+            INNER JOIN trainners ON incidencia.trainner_reporta_incidencia = trainners.id_trainner
