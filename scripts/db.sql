@@ -32,12 +32,20 @@ CREATE TABLE salon (
     FOREIGN KEY (area_salon) REFERENCES area(id_area)
 );
 
-CREATE TABLE computador (
-    id_computador INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    marca_computador VARCHAR(20) NOT NULL,
-    color_computador VARCHAR(20),
-    estado_computador INT NOT NULL,
-    FOREIGN KEY (estado_computador) REFERENCES estado(id_estado)
+CREATE TABLE pantalla (
+    id_pantalla INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    marca_pantalla VARCHAR(20) NOT NULL,
+    color_pantalla VARCHAR(20),
+    estado_pantalla INT NOT NULL,
+    FOREIGN KEY (estado_pantalla) REFERENCES estado(id_estado)
+);
+
+CREATE TABLE torre (
+    id_torre INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    marca_torre VARCHAR(20) NOT NULL,
+    color_torre VARCHAR(20),
+    estado_torre INT NOT NULL,
+    FOREIGN KEY (estado_torre) REFERENCES estado(id_estado)
 );
 
 CREATE TABLE teclado (
@@ -71,12 +79,14 @@ CREATE TABLE estado (
 
 CREATE TABLE equipo (
     id_equipo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    computador_equipo INT NOT NULL,
+    pantalla_equipo INT NOT NULL,
+    torre_equipo INT NOT NULL,
     teclado_equipo INT NOT NULL,
     mouse_equipo INT NOT NULL,
     diadema_equipo INT NOT NULL,
     salon_equipo INT NOT NULL,
-    FOREIGN KEY (computador_equipo) REFERENCES computador(id_computador),
+    FOREIGN KEY (pantalla_equipo) REFERENCES pantalla(id_pantalla),
+    FOREIGN KEY (torre_equipo) REFERENCES torre(id_torre),
     FOREIGN KEY (teclado_equipo) REFERENCES teclado(id_teclado),
     FOREIGN KEY (mouse_equipo) REFERENCES mouse(id_mouse),
     FOREIGN KEY (diadema_equipo) REFERENCES diadema(id_diadema),
@@ -109,5 +119,5 @@ CREATE TABLE incidencia (
     FOREIGN KEY (tipo_incidencia) REFERENCES tipo_incidencia(id_tipo_incidencia),
     FOREIGN KEY (fecha_incidencia) REFERENCES reporte_incidencia(id_reporte),
     FOREIGN KEY (area_incidencia) REFERENCES salon(id_salon),
-    FOREIGN KEY (lugar_incidencia) REFERENCES salon(id_salon)
+    FOREIGN KEY (lugar_incidencia) REFERENCES area(id_area)
 );
