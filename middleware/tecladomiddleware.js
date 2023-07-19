@@ -5,11 +5,10 @@ import {tecladoDTO} from "../dtocontroller/tecladodto.js";
 import { validate } from "class-validator";
 
 const proxyTeclado = express();
-proxyTeclado.use(async(req,res,next)=>{
+proxyTeclado.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(tecladoDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(tecladoDTO, req.body && req.params , { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

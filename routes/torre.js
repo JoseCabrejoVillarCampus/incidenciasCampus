@@ -11,7 +11,7 @@ storageTorre.use((req, res, next) => {
     next();
 })
 
-storageTorre.get("/:id?", (req,res)=>{
+storageTorre.get("/:id?", proxyTorre ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT torre.id_torre, torre.marca_torre, torre.color_torre, estado.nombre_estado AS estado_torre
             FROM torre

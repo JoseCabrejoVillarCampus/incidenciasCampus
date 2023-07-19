@@ -5,11 +5,10 @@ import {mouseDTO} from "../dtocontroller/mousedto.js";
 import { validate } from "class-validator";
 
 const proxyMouse = express();
-proxyMouse.use(async(req,res,next)=>{
+proxyMouse.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(mouseDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(mouseDTO, req.body && req.params , { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

@@ -11,7 +11,7 @@ storageSalon.use((req, res, next) => {
     next();
 })
 
-storageSalon.get("/:id?", (req,res)=>{
+storageSalon.get("/:id?", proxySalon ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT salon.id_salon, salon.nombre_salon, trainners.id_trainner, trainners.nombre_trainner, area.id_area, area.nombre_area
             FROM salon

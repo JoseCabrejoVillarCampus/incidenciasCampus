@@ -5,11 +5,10 @@ import {reporte_incidenciaDTO} from "../dtocontroller/reporte_incidencia.js";
 import { validate } from "class-validator";
 
 const proxyReporteIncidencia = express();
-proxyReporteIncidencia.use(async(req,res,next)=>{
+proxyReporteIncidencia.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(reporte_incidenciaDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(reporte_incidenciaDTO, req.body && req.params , { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

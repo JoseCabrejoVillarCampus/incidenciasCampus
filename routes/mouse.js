@@ -11,7 +11,7 @@ storageMouse.use((req, res, next) => {
     next();
 })
 
-storageMouse.get("/:id?", (req, res) => {
+storageMouse.get("/:id?", proxyMouse ,(req, res) => {
     let sql = (req.params.id)
         ? [`SELECT mouse.id_mouse, mouse.marca_mouse, mouse.color_mouse, estado.nombre_estado AS estado_mouse
             FROM mouse

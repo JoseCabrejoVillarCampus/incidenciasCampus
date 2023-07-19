@@ -8,11 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-import { IsNumber, MaxLength, IsDefined } from 'class-validator';
+import { IsNumber } from 'class-validator';
 export class tipo_incidenciaDTO {
-    constructor(ID, incidencia) {
+    constructor(ID, incidencia, ID2) {
         this.id_tipo_incidencia = ID;
         this.tipo_incidencia = incidencia;
+        this.id = ID2;
     }
 }
 __decorate([
@@ -25,12 +26,22 @@ __decorate([
     __metadata("design:type", Number)
 ], tipo_incidenciaDTO.prototype, "id_tipo_incidencia", void 0);
 __decorate([
-    Expose({ name: 'tipo_incidencia' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro tipo_incidencia es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro gen_nombre no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'tipo_incidencia' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro tipo_incidencia es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro gen_nombre no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ]+$/.test(value))
         return value;
     else
         throw { status: 400, message: `El dato tipo_incidencia incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], tipo_incidenciaDTO.prototype, "tipo_incidencia", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], tipo_incidenciaDTO.prototype, "id", void 0);

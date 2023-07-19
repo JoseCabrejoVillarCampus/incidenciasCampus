@@ -11,7 +11,7 @@ storageEstado.use((req, res, next) => {
     next();
 })
 
-storageEstado.get("/:id?", (req,res)=>{
+storageEstado.get("/:id?", proxyEstado ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT * FROM estado WHERE id_estado = ?`, req.params.id]
         : [`SELECT * FROM estado`];

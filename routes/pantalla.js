@@ -11,7 +11,7 @@ storagePantalla.use((req, res, next) => {
     next();
 })
 
-storagePantalla.get("/:id?", (req, res) => {
+storagePantalla.get("/:id?", proxyPantalla ,(req, res) => {
     let sql = (req.params.id)
         ? [`SELECT pantalla.id_pantalla, pantalla.marca_pantalla, pantalla.color_pantalla, estado.nombre_estado AS estado_pantalla
             FROM pantalla

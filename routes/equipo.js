@@ -11,7 +11,7 @@ storageEquipo.use((req, res, next) => {
     next();
 })
 
-storageEquipo.get("/:id?", (req,res)=>{
+storageEquipo.get("/:id?", proxyEquipo ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT equipo.id_equipo, pantalla.id_pantalla, pantalla.marca_pantalla, pantalla.color_pantalla,
                 torre.id_torre, torre.marca_torre, torre.color_torre,

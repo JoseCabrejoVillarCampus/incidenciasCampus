@@ -11,7 +11,7 @@ storageCategoria.use((req, res, next) => {
     next();
 })
 
-storageCategoria.get("/:id?", (req,res)=>{
+storageCategoria.get("/:id?", proxyCategoria ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT * FROM categoria WHERE id_categoria = ?`, req.params.id]
         : [`SELECT * FROM categoria`];

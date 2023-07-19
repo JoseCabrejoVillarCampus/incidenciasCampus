@@ -19,8 +19,8 @@ export class incidenciaDTO {
     tipo_incidencia: number;
 
     @Expose({ name: 'descripcion_incidencia' })
-    @IsDefined({message: ()=>{throw {status: 401, message: `El parametro nombre_area es obligatorio` }}})
-    @MaxLength(200, {message: ()=>{throw {status: 401, message: `El parametro descripcion_incidencia no puede pasar os 45 caracteres`}}})
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro nombre_area es obligatorio` }}})
+    @MaxLength(200, {message: ()=>{throw {status: 401, message: `El parametro descripcion_incidencia no puede pasar os 45 caracteres`}}}) */
     @Transform(({value})=>{if(/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value)) return value; else throw {status: 400, message:`El dato descripcion_incidencia incumple los parametros acordados`};},{ toClassOnly: true})
     descripcion_incidencia: string;
 
@@ -43,6 +43,11 @@ export class incidenciaDTO {
     @IsNumber()
     @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato trainner_reporta_incidencia incumple los parametros acordados`};},{ toClassOnly: true})
     trainner_reporta_incidencia: number;
+    
+    @Expose({ name: 'id' })
+    @IsNumber()
+    @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato id incumple los parametros acordados`};},{ toClassOnly: true})
+    id: number;
 
 
     constructor(
@@ -53,7 +58,8 @@ export class incidenciaDTO {
         fecha: number,
         equipo: number,
         lugar: number,
-        trainner: number
+        trainner: number,
+        ID2: number
     ) {
         this.id_incidencia = ID;
         this.categoria_incidencia = categoria;
@@ -63,5 +69,6 @@ export class incidenciaDTO {
         this.equipo_incidencia = equipo;
         this.lugar_incidencia = lugar;
         this.trainner_reporta_incidencia = trainner;
+        this.id = ID2;
     }
 }

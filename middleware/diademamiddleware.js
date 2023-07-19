@@ -5,11 +5,10 @@ import {diademaDTO} from "../dtocontroller/diademadto.js";
 import { validate } from "class-validator";
 
 const proxyDiadema = express();
-proxyDiadema.use(async(req,res,next)=>{
+proxyDiadema.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(diademaDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(diademaDTO, req.body && req.params, { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

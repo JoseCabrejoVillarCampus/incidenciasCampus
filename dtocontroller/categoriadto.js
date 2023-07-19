@@ -8,11 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-import { IsNumber, MaxLength, IsDefined } from 'class-validator';
+import { IsNumber } from 'class-validator';
 export class categoriaDTO {
-    constructor(ID, categoria) {
+    constructor(ID, categoria, ID2) {
         this.id_categoria = ID;
         this.tipo_categoria = categoria;
+        this.id = ID2;
     }
 }
 __decorate([
@@ -25,12 +26,22 @@ __decorate([
     __metadata("design:type", Number)
 ], categoriaDTO.prototype, "id_categoria", void 0);
 __decorate([
-    Expose({ name: 'tipo_categoria' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro tipo_categoria es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro tipo_categoria no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'tipo_categoria' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro tipo_categoria es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro tipo_categoria no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ]+$/.test(value))
         return value;
     else
         throw { status: 400, message: `El dato tipo_categoria incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], categoriaDTO.prototype, "tipo_categoria", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], categoriaDTO.prototype, "id", void 0);

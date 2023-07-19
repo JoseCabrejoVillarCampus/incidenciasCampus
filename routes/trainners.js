@@ -11,7 +11,7 @@ storageTrainners.use((req, res, next) => {
     next();
 })
 
-storageTrainners.get("/:id?", (req,res)=>{
+storageTrainners.get("/:id?", proxyTrainners ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT * FROM trainners WHERE id_trainner = ?`, req.params.id]
         : [`SELECT * FROM trainners`];

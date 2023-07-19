@@ -8,18 +8,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-import { IsNumber, MaxLength, IsDefined } from 'class-validator';
+import { IsNumber } from 'class-validator';
 export class mouseDTO {
-    constructor(ID, marca, color, estado) {
+    constructor(ID, marca, color, estado, ID2) {
         this.id_mouse = ID;
         this.marca_mouse = marca;
         this.color_mouse = color;
         this.estado_mouse = estado;
+        this.id = ID2;
     }
 }
 __decorate([
-    Expose({ name: 'id_mouse' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro id_mouse es obligatorio` }; } }),
+    Expose({ name: 'id_mouse' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro id_mouse es obligatorio` }}}) */
+    ,
     IsNumber(),
     Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
         return Math.floor(value);
@@ -28,9 +30,10 @@ __decorate([
     __metadata("design:type", Number)
 ], mouseDTO.prototype, "id_mouse", void 0);
 __decorate([
-    Expose({ name: 'marca_mouse' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro marca_mouse es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro marca_mouse no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'marca_mouse' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro marca_mouse es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro marca_mouse no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
@@ -38,9 +41,10 @@ __decorate([
     __metadata("design:type", String)
 ], mouseDTO.prototype, "marca_mouse", void 0);
 __decorate([
-    Expose({ name: 'color_mouse' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro color_mouse es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro color_mouse no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'color_mouse' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro color_mouse es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro color_mouse no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
@@ -56,3 +60,12 @@ __decorate([
         throw { status: 400, message: `El dato estado_mouse incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], mouseDTO.prototype, "estado_mouse", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], mouseDTO.prototype, "id", void 0);

@@ -10,9 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber, IsDate } from 'class-validator';
 export class reporte_incidenciaDTO {
-    constructor(ID, fecha) {
+    constructor(ID, fecha, ID2) {
         this.id_reporte = ID;
         this.fecha_reporte = fecha;
+        this.id = ID2;
     }
 }
 __decorate([
@@ -33,3 +34,12 @@ __decorate([
         throw { status: 400, message: `el parámetro ingresado para fecha_reporte no es válido, debe seguir la sintaxis AAAA-MM-DD` }; }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], reporte_incidenciaDTO.prototype, "fecha_reporte", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], reporte_incidenciaDTO.prototype, "id", void 0);

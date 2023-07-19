@@ -11,7 +11,7 @@ storageDiadema.use((req, res, next) => {
     next();
 })
 
-storageDiadema.get("/:id?", (req,res)=>{
+storageDiadema.get("/:id?", proxyDiadema ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT diadema.id_diadema, diadema.marca_diadema, diadema.color_diadema, estado.nombre_estado AS estado_diadema
             FROM diadema

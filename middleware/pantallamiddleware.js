@@ -5,11 +5,10 @@ import {pantallaDTO} from "../dtocontroller/pantalladto.js";
 import { validate } from "class-validator";
 
 const proxyPantalla = express();
-proxyPantalla.use(async(req,res,next)=>{
+proxyPantalla.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(pantallaDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(pantallaDTO, req.body && req.params , { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

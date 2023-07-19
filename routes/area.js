@@ -11,7 +11,7 @@ storageArea.use((req, res, next) => {
     next();
 })
 
-storageArea.get("/:id?", (req,res)=>{
+storageArea.get("/:id?", proxyArea ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT * FROM area WHERE id_area = ?`, req.params.id]
         : [`SELECT * FROM area`];

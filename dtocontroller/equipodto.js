@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber } from 'class-validator';
 export class equipoDTO {
-    constructor(ID, pantalla, torre, teclado, mouse, diadema, salon) {
+    constructor(ID, pantalla, torre, teclado, mouse, diadema, salon, ID2) {
         this.id_equipo = ID;
         this.pantalla_equipo = pantalla;
         this.torre_equipo = torre;
@@ -18,6 +18,7 @@ export class equipoDTO {
         this.mouse_equipo = mouse;
         this.diadema_equipo = diadema;
         this.salon_equipo = salon;
+        this.id = ID2;
     }
 }
 __decorate([
@@ -83,3 +84,12 @@ __decorate([
         throw { status: 400, message: `El dato salon_equipo incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], equipoDTO.prototype, "salon_equipo", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], equipoDTO.prototype, "id", void 0);

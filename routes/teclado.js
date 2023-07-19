@@ -11,7 +11,7 @@ storageTeclado.use((req, res, next) => {
     next();
 })
 
-storageTeclado.get("/:id?", (req,res)=>{
+storageTeclado.get("/:id?", proxyTeclado ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT teclado.id_teclado, teclado.marca_teclado, teclado.color_teclado, estado.nombre_estado AS estado_pantalla
             FROM teclado

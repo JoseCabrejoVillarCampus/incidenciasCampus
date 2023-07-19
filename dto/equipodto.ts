@@ -37,6 +37,11 @@ export class equipoDTO {
     @IsNumber()
     @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato salon_equipo incumple los parametros acordados`};},{ toClassOnly: true})
     salon_equipo: number;
+    
+    @Expose({ name: 'id' })
+    @IsNumber()
+    @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato id incumple los parametros acordados`};},{ toClassOnly: true})
+    id: number;
 
     constructor(
         ID: number,
@@ -45,7 +50,8 @@ export class equipoDTO {
         teclado:number,
         mouse:number,
         diadema:number,
-        salon:number
+        salon:number,
+        ID2 :number
     ) {
         this.id_equipo = ID;
         this.pantalla_equipo = pantalla;
@@ -54,5 +60,6 @@ export class equipoDTO {
         this.mouse_equipo = mouse;
         this.diadema_equipo = diadema;
         this.salon_equipo = salon;
+        this.id = ID2;
     }
 }

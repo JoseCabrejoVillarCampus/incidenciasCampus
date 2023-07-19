@@ -8,11 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-import { IsNumber, MaxLength, IsDefined } from 'class-validator';
+import { IsNumber } from 'class-validator';
 export class areaDTO {
-    constructor(ID, area) {
+    constructor(ID, area, ID2) {
         this.id_area = ID;
         this.nombre_area = area;
+        this.id = ID2;
     }
 }
 __decorate([
@@ -25,12 +26,22 @@ __decorate([
     __metadata("design:type", Number)
 ], areaDTO.prototype, "id_area", void 0);
 __decorate([
-    Expose({ name: 'nombre_area' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro nombre_area es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro nombre_area no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'nombre_area' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro nombre_area es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro nombre_area no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
         throw { status: 400, message: `El dato nombre_area incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], areaDTO.prototype, "nombre_area", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], areaDTO.prototype, "id", void 0);

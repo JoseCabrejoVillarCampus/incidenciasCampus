@@ -11,7 +11,7 @@ storageIncidencia.use((req, res, next) => {
     next();
 })
 
-storageIncidencia.get("/:id?", (req,res)=>{
+storageIncidencia.get("/:id?", proxyIncidencia ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT incidencia.id_incidencia, categoria.id_categoria, categoria.tipo_categoria, tipo_incidencia.id_tipo_incidencia, tipo_incidencia.tipo_incidencia,
             incidencia.descripcion_incidencia, reporte_incidencia.id_reporte, area.id_area, area.nombre_area, salon.id_salon, salon.nombre_salon,

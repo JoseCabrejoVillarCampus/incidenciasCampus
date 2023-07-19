@@ -8,18 +8,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-import { IsNumber, MaxLength, IsDefined } from 'class-validator';
+import { IsNumber } from 'class-validator';
 export class tecladoDTO {
-    constructor(ID, marca, color, estado) {
+    constructor(ID, marca, color, estado, ID2) {
         this.id_teclado = ID;
         this.marca_teclado = marca;
         this.color_teclado = color;
         this.estado_teclado = estado;
+        this.id = ID2;
     }
 }
 __decorate([
-    Expose({ name: 'id_teclado' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro id_teclado es obligatorio` }; } }),
+    Expose({ name: 'id_teclado' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro id_teclado es obligatorio` }}}) */
+    ,
     IsNumber(),
     Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
         return Math.floor(value);
@@ -28,9 +30,10 @@ __decorate([
     __metadata("design:type", Number)
 ], tecladoDTO.prototype, "id_teclado", void 0);
 __decorate([
-    Expose({ name: 'marca_teclado' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro marca_teclado es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro marca_teclado no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'marca_teclado' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro marca_teclado es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro marca_teclado no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
@@ -38,9 +41,10 @@ __decorate([
     __metadata("design:type", String)
 ], tecladoDTO.prototype, "marca_teclado", void 0);
 __decorate([
-    Expose({ name: 'color_teclado' }),
-    IsDefined({ message: () => { throw { status: 401, message: `El parametro color_teclado es obligatorio` }; } }),
-    MaxLength(20, { message: () => { throw { status: 401, message: `El parametro color_teclado no puede pasar os 45 caracteres` }; } }),
+    Expose({ name: 'color_teclado' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro color_teclado es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro color_teclado no puede pasar os 45 caracteres`}}}) */
+    ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
@@ -56,3 +60,12 @@ __decorate([
         throw { status: 400, message: `El dato estado_teclado incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], tecladoDTO.prototype, "estado_teclado", void 0);
+__decorate([
+    Expose({ name: 'id' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], tecladoDTO.prototype, "id", void 0);

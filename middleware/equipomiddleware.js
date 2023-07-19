@@ -5,11 +5,10 @@ import {equipoDTO} from "../dtocontroller/equipoidto.js";
 import { validate } from "class-validator";
 
 const proxyEquipo = express();
-proxyEquipo.use(async(req,res,next)=>{
+proxyEquipo.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(equipoDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(equipoDTO, req.body && req.params , { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);

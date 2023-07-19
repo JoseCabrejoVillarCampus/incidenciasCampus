@@ -11,7 +11,7 @@ storageTipoIncidencia.use((req, res, next) => {
     next();
 })
 
-storageTipoIncidencia.get("/:id?", (req,res)=>{
+storageTipoIncidencia.get("/:id?", proxyTipoIncidencia ,(req,res)=>{
     let sql = (req.params.id)
         ? [`SELECT * FROM tipo_incidencia WHERE id_tipo_incidencia = ?`, req.params.id]
         : [`SELECT * FROM tipo_incidencia`];

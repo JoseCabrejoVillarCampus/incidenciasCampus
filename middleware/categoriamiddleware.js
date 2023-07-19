@@ -5,11 +5,10 @@ import {categoriaDTO} from "../dtocontroller/categoriadto.js"
 import { validate } from "class-validator";
 
 const proxyCategoria = express();
-proxyCategoria.use(async(req,res,next)=>{
+proxyCategoria.use("/:id", async(req,res,next)=>{
     try {
-        let data = plainToClass(categoriaDTO, req.body, { excludeExtraneousValues: true});
+        let data = plainToClass(categoriaDTO, req.body && req.params, { excludeExtraneousValues: true});
         await validate(data);
-        req.body = JSON.parse(JSON.stringify(data));
         next();
     } catch (err) {
         res.status(err.status).send(err);
