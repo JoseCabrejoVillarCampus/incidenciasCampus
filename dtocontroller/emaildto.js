@@ -9,45 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber } from 'class-validator';
-export class trainnersDTO {
-    constructor(ID, nombre, jornada, ID2) {
-        this.id_trainner = ID;
-        this.nombre_trainner = nombre;
-        this.jornada_trainner = jornada;
+export class emailDTO {
+    constructor(ID, email, trainer, ID2) {
+        this.id_email = ID;
+        this.email = email;
+        this.trainner_email = trainer;
         this.id = ID2;
     }
 }
 __decorate([
-    Expose({ name: 'id_trainner' }),
+    Expose({ name: 'id_email' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro id_diadema es obligatorio` }}}) */
+    ,
     IsNumber(),
     Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
         return Math.floor(value);
     else
-        throw { status: 400, message: `El dato id_trainner incumple los parametros acordados` }; }, { toClassOnly: true }),
+        throw { status: 400, message: `El dato id_email incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], trainnersDTO.prototype, "id_trainner", void 0);
+], emailDTO.prototype, "id_email", void 0);
 __decorate([
-    Expose({ name: 'nombre_trainner' })
-    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro nombre_trainner es obligatorio` }}})
-    @MaxLength(80, {message: ()=>{throw {status: 401, message: `El parametro nombre_trainner no puede pasar os 45 caracteres`}}}) */
+    Expose({ name: 'email' })
+    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro marca_diadema es obligatorio` }}})
+    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro marca_diadema no puede pasar os 45 caracteres`}}}) */
     ,
     Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
         return value;
     else
-        throw { status: 400, message: `El dato nombre_trainner incumple los parametros acordados` }; }, { toClassOnly: true }),
+        throw { status: 400, message: `El dato email incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", String)
-], trainnersDTO.prototype, "nombre_trainner", void 0);
+], emailDTO.prototype, "email", void 0);
 __decorate([
-    Expose({ name: 'jornada_trainner' })
-    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro jornada_trainner es obligatorio` }}})
-    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro jornada_trainner no puede pasar os 45 caracteres`}}}) */
-    ,
-    Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
-        return value;
+    Expose({ name: 'trainner_email' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
     else
-        throw { status: 400, message: `El dato jornada_trainner incumple los parametros acordados` }; }, { toClassOnly: true }),
-    __metadata("design:type", String)
-], trainnersDTO.prototype, "jornada_trainner", void 0);
+        throw { status: 400, message: `El dato trainner_email incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], emailDTO.prototype, "trainner_email", void 0);
 __decorate([
     Expose({ name: 'id' }),
     IsNumber(),
@@ -56,4 +56,4 @@ __decorate([
     else
         throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], trainnersDTO.prototype, "id", void 0);
+], emailDTO.prototype, "id", void 0);

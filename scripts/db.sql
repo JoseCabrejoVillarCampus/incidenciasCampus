@@ -23,7 +23,15 @@ CREATE TABLE area (
     id_area INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_area VARCHAR(20) NOT NULL
 );
-
+CREATE TABLE estado (
+    id_estado INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nombre_estado VARCHAR(20) NOT NULL /* Bueno, Dañado, Regular */
+);
+CREATE TABLE trainners (
+    id_trainner INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nombre_trainner VARCHAR(80) NOT NULL,
+    jornada_trainner VARCHAR(20) NOT NULL
+);
 CREATE TABLE salon (
     id_salon INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_salon VARCHAR(20) NOT NULL,
@@ -32,7 +40,6 @@ CREATE TABLE salon (
     FOREIGN KEY (area_salon) REFERENCES area(id_area),
     FOREIGN KEY (trainner_salon) REFERENCES trainners(id_trainner)
 );
-
 CREATE TABLE pantalla (
     id_pantalla INT PRIMARY KEY NOT NULL,
     marca_pantalla VARCHAR(20) NOT NULL,
@@ -40,7 +47,6 @@ CREATE TABLE pantalla (
     estado_pantalla INT NOT NULL,
     FOREIGN KEY (estado_pantalla) REFERENCES estado(id_estado)
 );
-
 CREATE TABLE torre (
     id_torre INT PRIMARY KEY NOT NULL,
     marca_torre VARCHAR(20) NOT NULL,
@@ -48,7 +54,6 @@ CREATE TABLE torre (
     estado_torre INT NOT NULL,
     FOREIGN KEY (estado_torre) REFERENCES estado(id_estado)
 );
-
 CREATE TABLE teclado (
     id_teclado INT PRIMARY KEY NOT NULL,
     marca_teclado VARCHAR(20) NOT NULL,
@@ -56,7 +61,6 @@ CREATE TABLE teclado (
     estado_teclado INT NOT NULL,
     FOREIGN KEY (estado_teclado) REFERENCES estado(id_estado)
 );
-
 CREATE TABLE mouse (
     id_mouse INT PRIMARY KEY NOT NULL,
     marca_mouse VARCHAR(20) NOT NULL,
@@ -64,7 +68,6 @@ CREATE TABLE mouse (
     estado_mouse INT NOT NULL,
     FOREIGN KEY (estado_mouse) REFERENCES estado(id_estado)
 );
-
 CREATE TABLE diadema (
     id_diadema INT PRIMARY KEY NOT NULL,
     marca_diadema VARCHAR(20) NOT NULL,
@@ -72,12 +75,18 @@ CREATE TABLE diadema (
     estado_diadema INT NOT NULL,
     FOREIGN KEY (estado_diadema) REFERENCES estado(id_estado)
 );
-
-CREATE TABLE estado (
-    id_estado INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre_estado VARCHAR(20) NOT NULL /* Bueno, Dañado, Regular */
+CREATE TABLE telefono (
+    id_telefono INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    numero_telefono VARCHAR(15) NOT NULL,
+    trainner_telefono INT NOT NULL,
+    FOREIGN KEY (trainner_telefono) REFERENCES trainners(id_trainner)
 );
-
+CREATE TABLE email (
+    id_email INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    trainner_email INT NOT NULL,
+    FOREIGN KEY (trainner_email) REFERENCES trainners(id_trainner)
+);
 CREATE TABLE equipo (
     id_equipo INT PRIMARY KEY NOT NULL,
     pantalla_equipo INT NOT NULL,
@@ -92,18 +101,6 @@ CREATE TABLE equipo (
     FOREIGN KEY (mouse_equipo) REFERENCES mouse(id_mouse),
     FOREIGN KEY (diadema_equipo) REFERENCES diadema(id_diadema),
     FOREIGN KEY (salon_equipo) REFERENCES salon(id_salon)
-);
-
-CREATE TABLE trainners (
-    id_trainner INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre_trainner VARCHAR(80) NOT NULL,
-    email_trainner_personal VARCHAR(30) NOT NULL,
-    email_trainner_corporativo VARCHAR(30) NOT NULL,
-    telefonoMobil_trainner_personal VARCHAR(50) NOT NULL,
-    telefonoMobil_trainner_empresarial VARCHAR(50) NOT NULL,
-    telefonoResidencia_trainner VARCHAR(50),
-    telefonoEmpresa_trainner VARCHAR(50) NOT NULL,
-    jornada_trainner VARCHAR(20) NOT NULL
 );
 CREATE TABLE incidencia (
     id_incidencia INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -121,16 +118,3 @@ CREATE TABLE incidencia (
     FOREIGN KEY (equipo_incidencia) REFERENCES equipo(id_equipo),
     FOREIGN KEY (lugar_incidencia) REFERENCES salon(id_salon)
 );
-
-
-
-SELECT incidencia.*, reporte_incidencia.id_reporte, area.id_area, area.nombre_area, salon.id_salon, salon.nombre_salon,trainners.id_trainner, trainners.nombre_trainner
-
-            FROM incidencia
-            INNER JOIN categoria ON incidencia.categoria_incidencia = categoria.id_categoria
-            INNER JOIN tipo_incidencia ON incidencia.tipo_incidencia = tipo_incidencia.id_tipo_incidencia
-            INNER JOIN reporte_incidencia ON incidencia.fecha_incidencia = reporte_incidencia.id_reporte
-            INNER JOIN equipo ON incidencia.equipo_incidencia = equipo.id_equipo
-            INNER JOIN salon ON incidencia.lugar_incidencia = salon.id_salon
-            INNER JOIN area ON salon.area_salon = area.id_area
-            INNER JOIN trainners ON incidencia.trainner_reporta_incidencia = trainners.id_trainner

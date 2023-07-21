@@ -14,6 +14,8 @@ import storageDiadema from './routes/diadema.js';
 import storageMouse from './routes/mouse.js';
 import storageEquipo from './routes/equipo.js';
 import storageIncidencia from './routes/incidencia.js';
+import storageTelefono from './routes/telefono.js';
+import storageEmail from './routes/email.js';
 
 
 dotenv.config();
@@ -34,7 +36,8 @@ appExpress.use("/diadema", storageDiadema);
 appExpress.use("/mouse",storageMouse);
 appExpress.use("/equipo", storageEquipo);
 appExpress.use("/incidencia",storageIncidencia);
-
+appExpress.use("/telefono",storageTelefono);
+appExpress.use("/email",storageEmail);
 
 const config =JSON.parse(process.env.MY_CONFIG);
 appExpress.listen(config, ()=>console.log(`http://${config.hostname}:${config.port}`));
