@@ -9,14 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose, Transform } from 'class-transformer';
 import { IsNumber } from 'class-validator';
-export class salonDTO {
-    constructor(ID, salon, area, ID2) {
-        this.id_salon = ID;
-        this.nombre_salon = salon;
-        this.area_salon = area;
+export class salon_trainnerDTO {
+    constructor(ID, trainner, salon, ID2) {
+        this.id_salon_trainner = ID;
+        this.id_trainner = trainner;
+        this.id_salon = salon;
         this.id = ID2;
     }
 }
+__decorate([
+    Expose({ name: 'id_salon_trainner' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id_salon_trainner incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], salon_trainnerDTO.prototype, "id_salon_trainner", void 0);
+__decorate([
+    Expose({ name: 'id_trainner' }),
+    IsNumber(),
+    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
+        return Math.floor(value);
+    else
+        throw { status: 400, message: `El dato id_trainner incumple los parametros acordados` }; }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], salon_trainnerDTO.prototype, "id_trainner", void 0);
 __decorate([
     Expose({ name: 'id_salon' }),
     IsNumber(),
@@ -25,26 +43,7 @@ __decorate([
     else
         throw { status: 400, message: `El dato id_salon incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], salonDTO.prototype, "id_salon", void 0);
-__decorate([
-    Expose({ name: 'nombre_salon' })
-    /* @IsDefined({message: ()=>{throw {status: 401, message: `El parametro nombre_salon es obligatorio` }}})
-    @MaxLength(20, {message: ()=>{throw {status: 401, message: `El parametro nombre_salon no puede pasar os 45 caracteres`}}}) */
-    ,
-    Transform(({ value }) => { if (/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value))
-        return value;
-    else
-        throw { status: 400, message: `El dato nombre_salon incumple los parametros acordados` }; }, { toClassOnly: true }),
-    __metadata("design:type", String)
-], salonDTO.prototype, "nombre_salon", void 0);
-__decorate([
-    Expose({ name: 'area_salon' }),
-    Transform(({ value }) => { if (/^[0-9]+$/.test(value) || value == undefined)
-        return Math.floor(value);
-    else
-        throw { status: 400, message: `El dato area_salon incumple los parametros acordados` }; }, { toClassOnly: true }),
-    __metadata("design:type", Number)
-], salonDTO.prototype, "area_salon", void 0);
+], salon_trainnerDTO.prototype, "id_salon", void 0);
 __decorate([
     Expose({ name: 'id' }),
     IsNumber(),
@@ -53,4 +52,4 @@ __decorate([
     else
         throw { status: 400, message: `El dato id incumple los parametros acordados` }; }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], salonDTO.prototype, "id", void 0);
+], salon_trainnerDTO.prototype, "id", void 0);

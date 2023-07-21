@@ -14,11 +14,6 @@ export class salonDTO {
     @Transform(({value})=>{if(/^[a-z A-Z áéíóúÁÉÍÓÚñÑüÜ 0-9]+$/.test(value)) return value; else throw {status: 400, message:`El dato nombre_salon incumple los parametros acordados`};},{ toClassOnly: true})
     nombre_salon: string;
 
-    @Expose({ name: 'trainner_salon' })
-    @IsNumber()
-    @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato trainner_salon incumple los parametros acordados`};},{ toClassOnly: true})
-    trainner_salon: number;
-
     @Expose({ name: 'area_salon' })
     @Transform(({value})=>{if(/^[0-9]+$/.test(value) || value==undefined ) return Math.floor(value); else throw {status: 400, message:`El dato area_salon incumple los parametros acordados`};},{ toClassOnly: true})
     area_salon: number;
@@ -32,13 +27,11 @@ export class salonDTO {
     constructor(
         ID: number,
         salon: string,
-        trainner: number,
         area: number,
         ID2: number
     ) {
         this.id_salon = ID;
         this.nombre_salon = salon;
-        this.trainner_salon = trainner;
         this.area_salon = area;
         this.id = ID2;
     }

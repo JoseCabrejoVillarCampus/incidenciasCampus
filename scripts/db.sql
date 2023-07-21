@@ -1,6 +1,6 @@
 CREATE DATABASE IncidenciasCampusLands;
 
-DROP DATABASE IncidenciasCampusLands;
+/* DROP DATABASE IncidenciasCampusLands; */
 
 USE IncidenciasCampusLands;
 
@@ -35,10 +35,8 @@ CREATE TABLE trainners (
 CREATE TABLE salon (
     id_salon INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_salon VARCHAR(20) NOT NULL,
-    trainner_salon INT NOT NULL,
     area_salon INT NOT NULL,
-    FOREIGN KEY (area_salon) REFERENCES area(id_area),
-    FOREIGN KEY (trainner_salon) REFERENCES trainners(id_trainner)
+    FOREIGN KEY (area_salon) REFERENCES area(id_area)
 );
 CREATE TABLE pantalla (
     id_pantalla INT PRIMARY KEY NOT NULL,
@@ -117,4 +115,11 @@ CREATE TABLE incidencia (
     FOREIGN KEY (fecha_incidencia) REFERENCES reporte_incidencia(id_reporte),
     FOREIGN KEY (equipo_incidencia) REFERENCES equipo(id_equipo),
     FOREIGN KEY (lugar_incidencia) REFERENCES salon(id_salon)
+);
+CREATE TABLE salon_trainner (
+    id_salon_trainner INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_trainner INT NOT NULL,
+    id_salon INT NOT NULL,
+    FOREIGN KEY (id_trainner) REFERENCES trainners(id_trainner),
+    FOREIGN KEY (id_salon) REFERENCES salon(id_salon)
 );

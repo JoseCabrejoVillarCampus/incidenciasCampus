@@ -16,7 +16,7 @@ Este proyecto crea un sistema de reportes para los trainners, salones y equipos 
 
 ## Esquema DB
 
-<img src="img/Screenshot%20from%202023-07-17%2013-00-41.png">
+<img src="img/Screenshot from 2023-07-20 20-09-19.png">
 
 # Dependencias Implementadas
 
